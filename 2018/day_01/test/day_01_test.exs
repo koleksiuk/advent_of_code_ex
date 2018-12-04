@@ -1,4 +1,4 @@
-defmodule ChronalCalibrationTest do
+defmodule Day01Test do
   use ExUnit.Case
 
   setup do
@@ -7,10 +7,10 @@ defmodule ChronalCalibrationTest do
   end
 
   test "sum sums the stream", context do
-    assert ChronalCalibration.sum(context[:stream]) == 1
+    assert Day01.sum(context[:stream]) == 1
   end
 
   test "find_repeated_frequency finds first repated frequency", context do
-    assert ChronalCalibration.find_repeated_frequencies(context[:stream]) == 14
+    assert Day01.find_repeated_frequencies(context[:stream]) == 14
   end
 end

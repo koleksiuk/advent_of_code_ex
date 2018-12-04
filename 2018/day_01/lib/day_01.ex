@@ -1,9 +1,9 @@
-defmodule ChronalCalibration do
-  alias ChronalCalibration.Device
+defmodule Day01 do
+  alias Day01.Device
   require IEx
 
   @moduledoc """
-  Documentation for ChronalCalibration.
+  Documentation for Day01.
   """
 
   @doc """
@@ -11,7 +11,7 @@ defmodule ChronalCalibration do
 
   ## Examples
 
-      iex> ChronalCalibration.hello()
+      iex> Day01.hello()
       :world
 
   """

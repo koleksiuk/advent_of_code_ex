@@ -1,4 +1,4 @@
-defmodule ChronalCalibration.Device do
+defmodule Day01.Device do
   def parse_frequency(line) when is_binary(line) do
     { sign, value } = String.split_at(line, 1)
 
