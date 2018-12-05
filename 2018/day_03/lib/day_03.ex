@@ -18,11 +18,11 @@ defmodule Day03 do
 
     fabric = claims |> claim_squares(%{})
 
-    Enum.reduce(Map.to_list(fabric), ids, fn ({_point, elves_ids}, all_ids) ->
+    Enum.reduce(Map.to_list(fabric), ids, fn ({_point, elves_ids}, ids) ->
       case Enum.count(elves_ids) do
-        0 -> all_ids
-        1 -> all_ids
-        _ -> Enum.reject(all_ids, fn (id) -> Enum.any?(elves_ids, &(&1 == id)) end)
+        0 -> ids
+        1 -> ids
+        _ -> Enum.reject(ids, fn (id) -> Enum.any?(elves_ids, &(&1 == id)) end)
       end
     end)
     |> hd
@@ -40,11 +40,11 @@ defmodule Day03 do
   end
 
   def claim_squares([claim|claims], fabric) do
-    fabric = Enum.reduce(Day03.Claim.range_x(claim), fabric, fn (x, fab) ->
-      Enum.reduce(Day03.Claim.range_y(claim), fab, fn(y, fb) ->
+    fabric = Enum.reduce(Day03.Claim.range_x(claim), fabric, fn (x, fabric) ->
+      Enum.reduce(Day03.Claim.range_y(claim), fabric, fn (y, fabric) ->
         key = {x, y}
 
-        fb
+        fabric
         |> Map.put_new(key, [])
         |> Map.update!(key, fn acc -> [claim.id|acc] end)
       end)
