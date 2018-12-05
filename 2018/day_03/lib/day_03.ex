@@ -32,7 +32,8 @@ defmodule Day03 do
     File.stream!(path)
     |> Stream.map(&String.trim/1)
     |> Stream.map(&LineParser.parse/1)
-    |> Enum.map(&Claim.build/1)
+    |> Stream.map(&Claim.build/1)
+    |> Enum.map(fn x -> x end)
   end
 
   def claim_squares([], fabric) do
