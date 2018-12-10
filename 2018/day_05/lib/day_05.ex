@@ -7,6 +7,26 @@ defmodule Day05 do
     react(String.codepoints(str)) |> String.length
   end
 
+  def test_strings(path \\ @default_path) do
+    {:ok, str} = File.read(path)
+
+    codepoints = String.codepoints(str)
+
+    letters = Enum.map(?a..?z, fn x -> <<x ::utf8>> end)
+
+    stream = Task.async_stream(letters, fn letter ->
+      polymer = remove(codepoints, letter)
+
+      new_polymer = react(polymer)
+
+      {letter, String.length(new_polymer)}
+    end, timeout: 20_000)
+
+    Enum.reduce(stream, Map.new, fn {letter, length}, acc ->
+      Map.put(acc, letter, length)
+    end)
+  end
+
   @doc ~S"""
 
   iex> Day05.react("dabAcCaCBAcCcaDA")
@@ -41,6 +61,11 @@ defmodule Day05 do
     react(codepoints, new_acc)
   end
 
+  @doc ~S"""
+
+    iex> Day05.remove(String.codepoints("dabAcCaCBAcCcaDA"), "c")
+    ["d", "a", "b", "A", "a", "B", "A", "a", "D", "A"]
+    """
   def remove(codepoints, letter) do
     Enum.reject(codepoints, fn (x) -> letter == String.downcase(x) end)
   end
