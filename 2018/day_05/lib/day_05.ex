@@ -22,9 +22,9 @@ defmodule Day05 do
       {letter, String.length(new_polymer)}
     end, timeout: 20_000)
 
-    Enum.reduce(stream, Map.new, fn {letter, length}, acc ->
+    Enum.reduce(stream, Map.new, fn {:ok, {letter, length}}, acc ->
       Map.put(acc, letter, length)
-    end)
+    end) |> Enum.min_by(fn {_key, val} -> val end)
   end
 
   @doc ~S"""
