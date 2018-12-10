@@ -4,27 +4,27 @@ defmodule Day05 do
   def run(path \\ @default_path) do
     {:ok, str} = File.read(path)
 
-    reduce(String.codepoints(str))
+    react(String.codepoints(str)) |> String.length
   end
 
   @doc ~S"""
 
-  iex> Day05.reduce("dabAcCaCBAcCcaDA")
+  iex> Day05.react("dabAcCaCBAcCcaDA")
   "dabCBAcaDA"
   """
-  def reduce(str) when is_binary(str) do
-    reduce(String.codepoints(str))
+  def react(str) when is_binary(str) do
+    react(String.codepoints(str))
   end
 
-  def reduce(codepoints) when is_list(codepoints) do
-    reduce(codepoints, [])
+  def react(codepoints) when is_list(codepoints) do
+    react(codepoints, [])
   end
 
-  def reduce([], acc) do
+  def react([], acc) do
     Enum.join(acc)
   end
 
-  def reduce([letter|codepoints], acc) do
+  def react([letter|codepoints], acc) do
     new_acc = case Enum.at(acc, -1) do
                 nil -> [letter]
                 prev_letter ->
@@ -38,6 +38,10 @@ defmodule Day05 do
                   end
               end
 
-    reduce(codepoints, new_acc)
+    react(codepoints, new_acc)
+  end
+
+  def remove(codepoints, letter) do
+    Enum.reject(codepoints, fn (x) -> letter == String.downcase(x) end)
   end
 end
